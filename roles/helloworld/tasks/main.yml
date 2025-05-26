@@ -8,16 +8,20 @@
     mode: 0644
   notify: restart helloworld
 
-- name: Copying the upstart file
+- name: Copying the service file
   copy: 
     src: helloworld.conf
-    dest: /etc/init/helloworld.conf
+    dest: /etc/systemd/system/helloworld.service
     owner: root
     group: root
     mode: 0644
 
-- name: Starting Ther HelloWorld node service
-  service:
+- name: Reload systemd
+  command: systemctl daemon-reload
+  when: ansible_service_mgr == 'systemd'
+
+- name: Enable and start HelloWorld service
+  systemd:
     name: helloworld
+    enabled: yes
     state: started
-# tasks file for helloworld

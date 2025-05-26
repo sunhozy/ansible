@@ -6,7 +6,7 @@
     name: "{{ item }}"
     enablerepo: epel
     state: installed
-    with_items:
-     - node.js
+  with_items:
+     - nodejs
      - npm
 
